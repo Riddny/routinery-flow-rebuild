@@ -1,0 +1,1287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Growth Audit — Routinery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only light;
+  /* ---- Routinery, extracted from their live screens ---- */
+  --rt-bg:#FFFFFF; --rt-card:#F9F9F9; --rt-line:#EEEEEE;
+  --rt-yellow:#FAE100; --rt-yellow-soft:#FFF9D6; --rt-yellow-line:#F3DC00; --rt-gold:#D9B300;
+  --rt-wash:#FFF4A8; --rt-orange:#FF7A00;
+  --rt-cta:#3A3B4A; --rt-cta-ink:#FFFFFF; --rt-off:#F2F2F2; --rt-off-ink:#C2C3C8;
+  --rt-ink:#3A3B4A; --rt-txt:#5B5C68; --rt-muted:#A6A7AE; --rt-wheel:#E6E6E6;
+  --r-ctl:34px; --r-media:40px;
+  /* ---- the report shell, in Routinery's own palette ---- */
+  --bg:#FFFFFF; --bg2:#F9F9F9; --surf:#FFFFFF;
+  --hair:rgba(58,59,74,.10); --hair2:rgba(58,59,74,.18);
+  --ink:#3A3B4A; --ink2:#5B5C68; --ink3:#9A9BA3;
+  --accent:#3A3B4A; --accent-lift:#8F7100;
+  --panel:#FFFFFF; --panel-ink:#24252F; --panel-muted:#6A6B75; --panel-line:#ECECEE;
+  --accent-ink:#7E6300;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+
+/* ============ top bar ============ */
+.nav{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.86);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 20px;gap:12px}}
+.nav-brand{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.nav-brand .mk{width:26px;height:26px;flex:none;display:block}
+.nav-brand .mk svg{width:26px;height:26px;display:block}
+.nav-brand span{color:var(--ink2);font-weight:500}
+.nav-brand b{color:var(--ink);font-weight:600}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink3);transition:.16s}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:#F4F4F5;box-shadow:0 1px 4px rgba(58,59,74,.08)}
+@media(max-width:640px){.nav-brand span{display:none}}
+
+.view{display:none}
+.view.on{display:block}
+
+/* ============ hero ============ */
+.hero{padding:104px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-340px;left:50%;transform:translateX(-50%);
+  width:1100px;height:640px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(250,225,0,.30),transparent 72%)}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(38% 46% at 8% 18%,rgba(255,170,60,.16),transparent 70%),
+   radial-gradient(36% 44% at 92% 16%,rgba(255,236,120,.30),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:76px;line-height:.98;font-weight:700;letter-spacing:-.045em;margin:0 0 24px}
+@media(max-width:820px){.hero h1{font-size:50px}.hero{padding-top:70px}}
+.hero .lede{font-size:20px;line-height:1.5;font-weight:400;color:var(--ink2);max-width:600px;margin:0 auto;letter-spacing:-.012em}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:12.5px;color:var(--ink3);letter-spacing:.02em}
+.hero .meta b{color:var(--ink2);font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:0;margin:70px auto 0;max-width:760px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.stat span{display:block;font-size:11.5px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:19px}.stat{padding:18px 8px}}
+
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:rgba(250,225,0,.35);
+  display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:var(--accent-lift);stroke-width:3;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.fb-i p b{color:var(--ink);font-weight:700}
+
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-size:38px;line-height:1.14;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;max-width:680px}
+@media(max-width:820px){.sec h2{font-size:29px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:640px;margin:0 0 18px;letter-spacing:-.008em}
+.sec p.body b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--hair);margin:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--bg2);border:1px solid var(--hair);border-radius:16px;padding:24px 26px}
+.note h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+.note p{font-size:14px;line-height:1.6;color:var(--ink2);margin:0}
+
+.ideas{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 180px;gap:26px;align-items:start;
+  padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s}
+.idea:hover{background:#FFFCE8}
+@media(max-width:780px){.idea{grid-template-columns:38px 1fr;gap:16px}}
+.idea .no{font-size:13px;font-weight:700;color:var(--ink3);padding-top:4px;letter-spacing:.02em}
+.idea h3{font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.024em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18px}}
+.idea p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin:0;max-width:540px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:12px}}
+.idea .out b{display:block;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12.5px;
+  font-weight:600;color:var(--accent-lift)}
+.idea .seeit svg{width:12px;height:12px}
+
+.band{background:var(--bg2);border:1px solid var(--hair);border-radius:28px;padding:40px 44px;margin-top:44px;
+  display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:30px;font-weight:700;letter-spacing:-.035em;color:var(--accent-lift)}
+.band .nums div span{display:block;font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;
+  text-transform:uppercase;font-weight:600}
+
+.cta-row{display:flex;justify-content:center;margin-top:52px;align-items:center;gap:22px;flex-wrap:wrap}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;padding:15px 26px;border-radius:30px;transition:.16s}
+.bigbtn:hover{filter:brightness(1.15)}
+.bigbtn svg{width:15px;height:15px}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);gap:0;
+  align-items:start;min-height:calc(100vh - 58px);background:#FAFAF7}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:34px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.panelcol{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);
+  min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none;border-left:none;border-top:1px solid var(--hair)}}
+
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #000;
+  border-radius:46px;box-shadow:0 0 0 1.5px #DADADF,0 34px 70px -22px rgba(58,59,74,.35)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--rt-bg);color-scheme:only light}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;
+  border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;
+  align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:700 15px/1 -apple-system,'Montserrat',sans-serif;color:#111;transition:color .3s}
+.sbar.light{color:#fff}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;
+  border-radius:3px;background:#111;z-index:56;pointer-events:none;transition:background .3s}
+.homebar.light{background:rgba(255,255,255,.9)}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--rt-bg)}
+
+/* ============ phone screens — Routinery's system, all prefixed scr-/rt- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--rt-bg);color:var(--rt-ink);
+  font-family:'Montserrat',-apple-system,sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.sheet{transform:translateY(100%)}
+.scr.sheet.is-active{transform:translateY(0);z-index:30}
+.scr.nofx{transition:none}
+.scr-top{flex:none;padding:62px 24px 0;position:relative;z-index:2}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 20px;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-body.dock{display:flex;flex-direction:column}
+.scr-foot{flex:none;padding:12px 18px 30px;position:relative;z-index:2}
+.scr.wash{background:linear-gradient(180deg,var(--rt-wash) 0%,#FFFBE0 22%,var(--rt-bg) 42%)}
+
+.rt-prog{height:8px;border-radius:4px;background:#F2F2F2;overflow:hidden}
+.rt-prog i{display:block;height:100%;background:var(--rt-yellow);border-radius:4px;transition:width .4s cubic-bezier(.32,.72,0,1)}
+.rt-ask{display:flex;align-items:center;gap:12px;margin-top:34px}
+.rt-ask .rt-mas{width:44px;height:44px;flex:none;margin-left:-6px}
+.rt-bub{position:relative;flex:1;background:var(--rt-card);border-radius:40px;padding:22px 20px 20px 20px}
+.rt-bub::before{content:'';position:absolute;left:-7px;top:50%;margin-top:-7px;width:14px;height:14px;background:var(--rt-card);transform:rotate(45deg);border-radius:2px}
+.rt-bub h2{font-size:22px;line-height:1.3;font-weight:700;letter-spacing:-.01em;color:var(--rt-ink)}
+.rt-bub p{font-size:14px;line-height:1.4;color:var(--rt-muted);margin-top:6px;font-weight:400}
+
+.rt-btn{display:block;width:100%;height:62px;border-radius:31px;background:var(--rt-cta);color:var(--rt-cta-ink);
+  font:700 20px/1 'Montserrat',sans-serif;letter-spacing:-.005em;transition:filter .15s,background .2s}
+.rt-btn:hover{filter:brightness(1.12)}
+.rt-btn[disabled]{background:var(--rt-off);color:var(--rt-off-ink);cursor:default;filter:none}
+.rt-link{display:block;width:100%;text-align:center;font:700 17px/1 'Montserrat',sans-serif;color:var(--rt-muted);padding:14px 0 16px}
+
+/* mascot */
+.rt-mas{display:block;color:#111}
+.phone-in.dark .rt-mas{color:#E8E8EC}
+.rt-mas .sw{transform-origin:50% 55%}
+.spinning .sw{animation:rtspin 1.6s linear infinite}
+@keyframes rtspin{to{transform:rotate(360deg)}}
+
+/* welcome / account — their dimmed video frame */
+.scr--photo{background:#3A3832;color:#fff;overflow:hidden}
+.rt-photo{position:absolute;inset:0;z-index:0;background:#5B5850 url(img/welcome-bg.jpg) 12% 0%/cover no-repeat;filter:blur(1.2px);transform:scale(1.03)}
+.rt-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,38,34,.18),rgba(40,38,34,.08) 40%,rgba(40,38,34,.35))}
+.rt-wh{font-size:43px;line-height:1.12;font-weight:700;letter-spacing:-.01em;text-align:center;color:#fff;margin-top:68px}
+.rt-wsub{font-size:16px;line-height:1.45;text-align:center;color:rgba(255,255,255,.88);margin:14px 18px 0;font-weight:500}
+.rt-wbtn{position:relative;display:block;width:100%;height:72px;border-radius:36px;background:#fff;color:var(--rt-ink);font:700 21px/1 'Montserrat',sans-serif}
+.rt-wbtn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.9);color:#fff;margin-top:20px}
+.rt-wbadge{position:absolute;right:18px;top:-20px;background:var(--rt-yellow);color:var(--rt-ink);font:700 14px/1 'Montserrat',sans-serif;padding:11px 17px;border-radius:20px}
+.rt-wsign{text-align:center;color:rgba(255,255,255,.9);font-size:15.5px;margin-top:26px;font-weight:400}
+.rt-wsign b{font-weight:700;margin-left:6px}
+
+/* which routine */
+.rt-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:64px}
+.rt-tile{height:230px;border-radius:36px;background:var(--rt-card);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  border:2px solid transparent;transition:.16s;font:500 16.5px/1.2 'Montserrat',sans-serif;color:var(--rt-ink)}
+.rt-tile img{width:62px;height:auto;display:block}
+.rt-tile.on{background:var(--rt-yellow-soft);border-color:var(--rt-yellow-line)}
+
+/* wheel — their time picker */
+.rt-wheels{position:relative;display:flex;gap:10px;justify-content:center;margin:96px auto 0;height:260px}
+.rt-wcol{position:relative;width:144px;height:260px}
+.rt-wcol .bar{position:absolute;left:0;right:0;top:103px;height:54px;border-radius:12px;background:var(--rt-wheel);pointer-events:none}
+.rt-wheel{position:relative;height:260px;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 70%,transparent)}
+.rt-wheel::-webkit-scrollbar{display:none}
+.rt-wheel .sp{height:104px}
+.rt-wheel .it{height:52px;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;font:400 24px/1 'Montserrat',sans-serif;color:var(--rt-ink);transition:opacity .1s}
+
+/* use-for rows */
+.rt-rows{display:flex;flex-direction:column;gap:14px;margin-top:38px;padding-bottom:8px}
+.rt-row{display:flex;align-items:center;gap:8px;width:100%;text-align:left;height:64px;border-radius:32px;background:var(--rt-card);
+  border:2px solid transparent;padding:0 20px;font:400 17px/1.2 'Montserrat',sans-serif;color:var(--rt-ink);transition:.16s}
+.rt-row.on{background:var(--rt-yellow-soft);border-color:var(--rt-yellow-line);font-weight:600}
+
+/* loader */
+.rt-load{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:20px 6px}
+.rt-load .rt-mas{width:132px;height:132px}
+.rt-load-h{font-size:24px;line-height:1.25;font-weight:700;text-align:center;margin:22px 0 22px;color:var(--rt-ink)}
+.rt-ls{display:flex;flex-direction:column;gap:13px;width:100%;max-width:300px}
+.rt-l{display:flex;align-items:center;gap:11px;font-size:15px;line-height:1.3;font-weight:500;color:var(--rt-muted);transition:.35s}
+.rt-l.on{color:var(--rt-ink)}
+.rt-l .d{width:24px;height:24px;flex:none;border-radius:50%;border:2px solid #E4E4E6;display:grid;place-items:center;transition:.35s}
+.rt-l.on .d{background:var(--rt-yellow);border-color:var(--rt-yellow)}
+.rt-l .d svg{width:12px;height:12px;stroke:var(--rt-ink);stroke-width:3.2;fill:none;opacity:0;stroke-linecap:round;stroke-linejoin:round}
+.rt-l.on .d svg{opacity:1}
+.rt-q{width:100%;max-width:310px;background:var(--rt-card);border-radius:28px;padding:16px 18px;margin-top:26px;min-height:118px}
+.rt-q .st{color:#FFC93C;font-size:13px;letter-spacing:2px}
+.rt-q p{font-size:13.5px;line-height:1.5;color:var(--rt-txt);margin-top:4px}
+.rt-q b{display:block;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--rt-muted);text-align:right}
+.rt-qd{display:flex;gap:5px;justify-content:center;margin-top:12px}
+.rt-qd i{width:6px;height:6px;border-radius:50%;background:#E2E2E5;transition:.3s}
+.rt-qd i.on{background:var(--rt-yellow);width:16px;border-radius:3px}
+
+/* routine card */
+.rt-h{font-size:31px;line-height:1.2;font-weight:700;letter-spacing:-.01em;text-align:center;color:var(--rt-ink);margin-top:56px}
+.rt-sub{font-size:16px;color:var(--rt-muted);text-align:center;margin-top:12px}
+.rt-rcard{background:var(--rt-card);border:1px solid var(--rt-line);border-radius:var(--r-media);padding:24px 20px 20px;margin-top:40px;position:relative}
+.rt-rmeta{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--rt-muted)}
+.rt-rmeta svg{width:15px;height:15px;stroke:var(--rt-muted);fill:none;stroke-width:1.8}
+.rt-rt{font-size:21px;font-weight:700;color:var(--rt-ink);margin-top:8px;padding-right:70px}
+.rt-rcard .rt-mas{position:absolute;right:18px;top:22px;width:58px;height:58px}
+.rt-for{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:var(--rt-yellow-soft);border:1px solid var(--rt-yellow-line);border-radius:14px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--rt-ink)}
+.rt-steps{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.rt-step{display:flex;align-items:center;gap:12px;font-size:15px;line-height:1.35;color:var(--rt-ink)}
+.rt-step .n{width:12px;font-size:12px;font-weight:700;flex:none}
+.rt-step .e{font-size:22px;width:28px;text-align:center;flex:none}
+
+/* reminders */
+.rt-rem{position:relative;width:300px;height:300px;margin:48px auto 0;border-radius:50%;background:#FBF1B4;overflow:hidden}
+.rt-ph{position:absolute;left:56px;right:56px;top:66px;bottom:-40px;border:11px solid #4A4A4F;border-bottom:none;border-radius:40px 40px 0 0;background:#fff}
+.rt-nt{position:absolute;left:30px;right:30px;top:108px;background:#fff;border-radius:18px;padding:11px 13px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.rt-nt .ic{width:30px;height:30px;flex:none}
+.rt-nt div{font-size:11.5px;line-height:1.35;color:var(--rt-txt)}
+.rt-nt div b{display:block;font-size:12.5px;color:var(--rt-ink);font-weight:700}
+.rt-ov{position:absolute;inset:0;z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}
+.rt-ov.on{opacity:1;pointer-events:auto}
+.rt-dim{position:absolute;inset:0;background:rgba(40,40,44,.48)}
+.rt-sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:40px 40px 0 0;padding:12px 18px 32px;transform:translateY(100%);transition:transform .34s cubic-bezier(.32,.72,0,1)}
+.rt-ov.on .rt-sheet{transform:none}
+.rt-handle{width:68px;height:5px;border-radius:3px;background:#E3E3E6;margin:0 auto}
+.rt-sheet h3{font-size:19px;font-weight:700;margin:24px 0 0 8px;color:var(--rt-ink)}
+.rt-all{display:flex;align-items:center;justify-content:space-between;height:64px;border-radius:24px;background:#F2F2F2;padding:0 20px;margin-top:22px;font-size:17px;color:#B8B8BE}
+.rt-all svg,.rt-cl svg{width:22px;height:22px;stroke:#B8B8BE;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.rt-cl{display:flex;align-items:center;gap:14px;font-size:16px;color:var(--rt-ink);margin:22px 0 0 6px;line-height:1.35}
+.rt-cl.on svg{stroke:var(--rt-ink)}
+.rt-cl.opt{color:#B8B8BE}
+.rt-cl .v{margin-left:auto;font-size:14px;color:#B8B8BE}
+.rt-sys{position:absolute;left:46px;right:46px;top:50%;transform:translateY(-50%) scale(.94);background:rgba(246,246,248,.96);border-radius:34px;padding:24px 16px 16px;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.25);transition:transform .25s}
+.rt-ov.on .rt-sys{transform:translateY(-50%) scale(1)}
+.rt-sys .ic{width:56px;height:56px;margin:0 0 12px 8px}
+.rt-sys h4{font-size:16px;line-height:1.3;font-weight:700;color:#000;margin:0 8px}
+.rt-sys p{font-size:13.5px;line-height:1.4;color:#555;margin:6px 8px 0}
+.rt-sysb{display:flex;gap:8px;margin-top:18px}
+.rt-sysb.col{flex-direction:column}
+.rt-sysb.col button{flex:none}
+.rt-sysb button{flex:1;height:46px;border-radius:23px;background:rgba(120,120,128,.16);font:500 15.5px/1 -apple-system,sans-serif;color:#000}
+
+/* streak */
+.rt-streak{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:10px}
+.rt-streak .rt-mas{width:200px;height:200px;margin-top:70px}
+.rt-sn{font-size:42px;font-weight:700;color:var(--rt-gold);margin-top:34px;letter-spacing:-.01em}
+.rt-sd{font-size:17px;line-height:1.6;color:var(--rt-muted);margin-top:10px}
+.rt-fx{position:absolute;inset:0;pointer-events:none;z-index:1}
+.rt-fx i{position:absolute;display:block;border-radius:3px}
+
+/* paywall — their yellow head, white sheet, trial timeline */
+.scr--pay{background:#fff}
+.rt-pwtop{background:var(--rt-wash);margin:0 -20px;padding:70px 0 0;text-align:center}
+.rt-pwtop .rt-mas{width:128px;height:128px;margin:0 auto -34px;position:relative;z-index:2}
+.rt-pwsheet{background:#fff;border-radius:60px 60px 0 0;height:48px}
+.rt-x{position:absolute;right:22px;top:66px;z-index:6;width:40px;height:40px;display:grid;place-items:center;color:#9C9CA3}
+.rt-x svg{width:24px;height:24px}
+.rt-pill{display:table;margin:0 auto;background:var(--rt-yellow-soft);border:1px solid var(--rt-yellow-line);border-radius:16px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--rt-ink)}
+.rt-pwh{font-size:26px;line-height:1.24;font-weight:700;text-align:center;color:var(--rt-ink);margin:12px 4px 0;letter-spacing:-.01em}
+.rt-pwh2{font-size:19px;line-height:1.3;font-weight:700;text-align:center;color:var(--rt-ink);margin-top:6px}
+.rt-pws{font-size:14.5px;color:var(--rt-muted);text-align:center;margin-top:8px}
+.rt-tl{margin:26px 0 0 8px;display:flex;flex-direction:column}
+.rt-tli{display:flex;gap:20px;position:relative;padding-bottom:20px}
+.rt-tli:last-child{padding-bottom:0}
+.rt-tli .dot{width:42px;height:42px;flex:none;border-radius:50%;background:#FFFBE3;display:grid;place-items:center;position:relative;z-index:2;box-shadow:0 2px 10px rgba(250,200,0,.18)}
+.rt-tli .dot svg{width:20px;height:20px}
+.rt-tli.first .dot{background:var(--rt-orange)}
+.rt-tli:not(:last-child)::after{content:'';position:absolute;left:19px;top:40px;bottom:0;width:4px;background:linear-gradient(180deg,#FFB400,#FFF3B8)}
+.rt-tli div b{display:block;font-size:17px;font-weight:700;color:var(--rt-ink)}
+.rt-tli div span{display:block;font-size:14.5px;line-height:1.45;color:var(--rt-txt);margin-top:3px}
+.rt-plans{display:flex;flex-direction:column;gap:12px;margin-top:30px}
+.rt-plan{position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;min-height:76px;border-radius:30px;background:#fff;border:1.5px solid var(--rt-line);padding:12px 24px;transition:.16s}
+.rt-plan.on{background:var(--rt-yellow-soft);border-color:var(--rt-yellow-line)}
+.rt-plan .t{display:block;font-size:17px;font-weight:700;color:var(--rt-ink)}
+.rt-plan .s{display:block;font-size:13px;color:var(--rt-txt);margin-top:4px}
+.rt-plan .ck{width:26px;height:26px;flex:none;opacity:0}
+.rt-plan.on .ck{opacity:1}
+.rt-plan .ck svg{width:26px;height:26px;stroke:var(--rt-yellow-line);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.rt-save{position:absolute;top:-11px;right:22px;background:var(--rt-ink);color:#fff;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:11px}
+.rt-aw{display:block;width:100%;height:auto;margin-top:34px}
+.rt-rev{background:var(--rt-card);border-radius:32px;padding:22px 22px 18px;margin-top:30px}
+.rt-rev h5{font-size:15px;font-weight:700;color:var(--rt-ink)}
+.rt-rev .st{color:#FFC93C;font-size:19px;letter-spacing:2px;margin-top:4px}
+.rt-rev p{font-size:14.5px;line-height:1.5;color:var(--rt-txt);margin-top:6px}
+.rt-rev small{display:block;text-align:right;color:var(--rt-muted);font-size:13px;margin-top:8px}
+.scr--pay .scr-foot{padding:10px 18px 28px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff 22%)}
+
+/* offer — monthly, no trial, Free vs Premium */
+.scr--offer{background:#fff}
+.rt-oh{font-size:26px;line-height:1.24;font-weight:700;text-align:center;color:var(--rt-ink);margin-top:10px}
+.rt-os{font-size:15px;line-height:1.45;color:var(--rt-muted);text-align:center;margin-top:10px}
+.rt-cmp{margin-top:20px;border-radius:32px;background:var(--rt-card);padding:8px 0 4px;overflow:hidden}
+.rt-cmp table{width:100%;border-collapse:collapse;font-size:14.5px}
+.rt-cmp th{font-size:13px;font-weight:700;color:var(--rt-muted);padding:12px 6px 10px;text-align:center}
+.rt-cmp th:first-child,.rt-cmp td:first-child{text-align:left;padding-left:20px;width:46%}
+.rt-cmp td{padding:13px 6px;text-align:center;color:var(--rt-txt);border-top:1px solid var(--rt-line)}
+.rt-cmp td:first-child{color:var(--rt-ink);font-weight:500}
+.rt-cmp .pr{background:var(--rt-yellow-soft);color:var(--rt-ink);font-weight:700}
+.rt-cmp th.pr{color:var(--rt-ink)}
+.rt-mplan{margin-top:16px}
+.rt-mplan .rt-plan{cursor:default}
+
+/* dark mode — an approximation: no dark frames were supplied */
+.phone-in.dark{--rt-bg:#16161B;--rt-card:#222229;--rt-line:#30303A;--rt-yellow-soft:#3A3412;--rt-wash:#3A3414;
+  --rt-ink:#F1F1F4;--rt-txt:#B6B6BF;--rt-muted:#80808B;--rt-off:#26262D;--rt-off-ink:#5E5E68;--rt-wheel:#2B2B33;
+  --rt-cta:#FAE100;--rt-cta-ink:#2B2B33;background:var(--rt-bg)}
+.phone-in.dark .screenwrap{background:var(--rt-bg)}
+.phone-in.dark .scr.wash{background:linear-gradient(180deg,#3A3414 0%,#24221A 22%,var(--rt-bg) 42%)}
+.phone-in.dark .rt-prog{background:#2A2A31}
+.phone-in.dark .scr--pay,.phone-in.dark .scr--offer{background:var(--rt-bg)}
+.phone-in.dark .rt-pwsheet{background:var(--rt-bg)}
+.phone-in.dark .scr--pay .scr-foot{background:linear-gradient(180deg,rgba(22,22,27,0),#16161B 22%)}
+.phone-in.dark .rt-plan{background:var(--rt-card)}
+.phone-in.dark .rt-plan.on{background:var(--rt-yellow-soft)}
+.phone-in.dark .rt-save{background:var(--rt-yellow);color:#2B2B33}
+.phone-in.dark .rt-aw{filter:invert(1) hue-rotate(180deg)}
+.phone-in.dark .rt-tli .dot{background:#2C2A1C}
+.phone-in.dark .rt-tli.first .dot{background:var(--rt-orange)}
+.phone-in.dark .rt-l .d{border-color:#3A3A44}
+.phone-in.dark .rt-qd i{background:#3A3A44}
+.phone-in.dark .rt-rem{background:#3A3414}
+.phone-in.dark .rt-ph{background:#1E1E24;border-color:#5A5A62}
+.phone-in.dark .rt-nt{background:#2A2A31}
+.phone-in.dark .rt-sheet{background:#1E1E24}
+.phone-in.dark .rt-all{background:#2A2A31;color:#6A6A74}
+.phone-in.dark .rt-sys{background:rgba(44,44,48,.97)}
+.phone-in.dark .rt-sys h4{color:#fff}
+.phone-in.dark .rt-sys p{color:#AAA}
+.phone-in.dark .rt-sysb button{color:#fff;background:rgba(120,120,128,.32)}
+.phone-in.dark .rt-dim{background:rgba(0,0,0,.6)}
+.phone-in.dark .rt-wbtn:not(.ghost){background:#fff}
+
+/* prototype toolbar, walkthrough, QR */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px}
+.seg{display:inline-flex;align-items:center;background:#fff;border:1px solid #E3E3E6;border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 11px;border-radius:16px;font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);transition:.14s}
+.seg button.on{background:var(--ink);color:#fff}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:20px;background:var(--accent);color:#fff;
+  font:700 12px/1 'Plus Jakarta Sans',sans-serif}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:#fff;border:1px solid var(--hair);border-radius:16px;padding:14px 14px 12px;
+  display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(58,59,74,.07)}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:#EEEEF0}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--rt-yellow);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:13.5px;line-height:1.45;color:var(--ink);margin:0;font-weight:500}
+.demo-cap button{font:700 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);padding:7px 10px;border-radius:12px;border:1px solid #E3E3E6;flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(58,59,74,.26);
+  border:2px solid rgba(255,255,255,.95);box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(58,59,74,.4)}
+.qr{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:10px 16px 10px 10px;text-align:left}
+.qr img{width:123px;height:123px;display:block;image-rendering:pixelated;border-radius:6px}
+.qr span{font-size:12.5px;line-height:1.45;color:var(--ink2)}
+.qr b{display:block;color:var(--ink);font-size:13.5px}
+@media(max-width:1080px){.qr{display:none}}
+
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+.cta-row .qr{order:2}
+/* on a phone: the prototype is the screen */
+@media(max-width:500px){
+  #view-proto .phonecol{padding:0 0 28px;gap:14px}
+  #view-proto .phone{width:100vw;height:calc(100svh - 58px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:1}
+  #view-proto .phone-in{border-radius:0}
+  #view-proto .island,#view-proto .sbar,#view-proto .homebar{display:none}
+  #view-proto .scr-top{padding-top:20px}
+  #view-proto .scr-foot{padding-bottom:18px}
+  #view-proto .rt-pwtop{padding-top:26px}
+  #view-proto .rt-x{top:16px}
+  #view-proto .rt-wh{margin-top:40px}
+  #view-proto .tools{order:3;padding:0 12px}
+  #view-proto .demo-cap{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;z-index:95}
+  #view-proto .chips{order:4;padding:0 12px}
+  #view-proto .chiphint{order:5}
+}
+
+/* overview: walkthrough button */
+.herobtns{display:flex;justify-content:center;margin-top:30px}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--hair2);color:var(--ink);font-size:14px;
+  font-weight:700;padding:9px 20px 9px 9px;border-radius:30px;box-shadow:0 2px 12px rgba(58,59,74,.06);transition:.16s}
+.ghostbtn:hover{box-shadow:0 4px 18px rgba(58,59,74,.1)}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--rt-yellow);display:grid;place-items:center}
+.ghostbtn .pl svg{width:12px;height:12px;fill:var(--ink);margin-left:2px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid #E3E3E6;background:#fff;
+  font:600 12px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink2);transition:.14s}
+.chip:hover{color:var(--ink);border-color:#C9C9CF}
+.chip.offer{border-style:dashed;border-color:#C9A800;color:var(--accent-lift)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff;border-style:solid}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:23px;line-height:1.18;font-weight:700;letter-spacing:-.028em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#33343E;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:700;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#33343E;font-weight:700}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);
+  padding-top:14px;margin-top:26px}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <span class="mk"><svg viewBox="0 0 64 64" class="appicon" aria-label="Routinery"></svg></span>
+      <b>Growth Audit</b><span>· Routinery</span>
+    </div>
+    <div class="nav-links">
+      <button class="on" data-view="over">Overview</button>
+      <button data-view="proto">Prototype</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Growth Audit · November 2026</div>
+    <h1>Routinery</h1>
+    <p class="lede">Five ideas to unlock more revenue from the traffic you already have.</p>
+    <div class="meta">Prepared by <b>Adapty</b> · based on your live iOS flow and your App Store listing</div>
+    <div class="herobtns"><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+    <div class="stats">
+      <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+      <div class="stat"><b>5</b><span>ideas, each rebuilt<br>as a working screen</span></div>
+      <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+    </div>
+
+    <div class="fb">
+      <div class="fb-k">Built in Adapty Flow Builder</div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p>
+      </div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Nearly 500 apps</b> actively build their paywalls and onboarding in it — plenty of them past $100K MRR.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">What this is</div>
+    <h2>We opened Routinery the way a new user does, then rebuilt the parts we think are leaving money on the table.</h2>
+    <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we get to see what actually moves conversion and ARPU across the market rather than inside one app. We pointed that at Routinery: installed it, went through every screen up to the paywall, read your App Store listing and your website, and looked for gaps between what you already have and what you show people.</p>
+    <p class="body">What follows is five ideas, not fifteen. Each one is a hypothesis you can A/B test, and each one is built into a clickable prototype so you can see it rather than imagine it. <b>The prototype uses your design, not ours.</b></p>
+
+    <div class="notes">
+      <div class="note">
+        <h4>We did not redesign your app</h4>
+        <p>Every screen in the prototype is yours: your yellow, your mascot, the speech-bubble questions, the time wheel, the routine card and your trial timeline. Only the order changed, plus a few things you already know about the user but do not show them.</p>
+      </div>
+      <div class="note">
+        <h4>You may have tested some of this</h4>
+        <p>We are working from the outside, so we cannot see your experiment history. If one of these is something you have already run, tell us and we will go deeper on the rest rather than repeat it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">The five ideas</div>
+    <h2>Ranked by what we would test first.</h2>
+    <p class="body">Each one links straight to the screen in the prototype.</p>
+
+    <div class="ideas">
+      <button class="idea" data-jump="offer">
+        <span class="no">01</span>
+        <span>
+          <h3>Catch the “no” with a monthly plan</h3>
+          <p>Your paywall has one real offer: 7 days free, then a year. Close it and the user drops to the free plan. You already sell Premium at $5.00 a month, so the X can open a plain Free vs Premium comparison at that price, no trial and no commitment.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>second chance</span></span>
+      </button>
+
+      <button class="idea" data-jump="welcome">
+        <span class="no">02</span>
+        <span>
+          <h3>Let people start before the account</h3>
+          <p>The biggest button on your welcome screen is “Sign up in 10 seconds”. Your own listing says no account is needed. Lead with “Start without signup” and ask for the account after the paywall, when there is a routine worth saving.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +8% · ARPU +17%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="paywall">
+        <span class="no">03</span>
+        <span>
+          <h3>Put their routine on the paywall</h3>
+          <p>By the paywall you know which routine they picked, when it starts and what they want help with. The paywall still says “Free for 7 days!” to everyone. Name their bedtime routine at 10:00 pm, and let a short build screen read their answers back first.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +15–20%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="account">
+        <span class="no">04</span>
+        <span>
+          <h3>Ask for tracking after the paywall</h3>
+          <p>The tracking prompt fires on the welcome screen, before the app has done a single thing. Most people tap “Ask App Not to Track” at that moment. Asked after purchase, the same prompt costs no conversion and gets a fairer answer.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="paywall">
+        <span class="no">05</span>
+        <span>
+          <h3>Show the yearly plan as $3 a month</h3>
+          <p>The plan picker labels the yearly plan “Free” and the monthly one by its price, so the cheaper plan looks like the expensive one. $36.00 a year is $3.00 a month, 40% less than paying $5.00 monthly. Say so on the card.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>annual mix</span></span>
+      </button>
+    </div>
+
+    <div class="band">
+      <div class="txt">
+        <div class="lab">Potential outcome</div>
+        <p>Run together, these five move the same funnel at three points: what stands between install and the first routine, what the paywall says, and what happens when someone says no.</p>
+      </div>
+      <div class="nums">
+        <div><b>+25%</b><span>CR to purchase</span></div>
+        <div><b>+30%</b><span>ARPU</span></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try the flow in your hand.</span></div>
+      <button class="bigbtn" data-view="proto">Open the prototype
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Impact ranges are Adapty's expected effect from teardowns and A/B tests across subscription apps — not measured lift for Routinery. Every price, rating, quote and award here and in the prototype comes from Routinery's own App Store listing, website and in-app screens. Prices are the US App Store prices.
+  </div>
+</div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="stage">
+  <div class="phonecol">
+    <div class="tools" id="tools">
+      <div class="seg" id="segLang"><button data-lang="en" class="on">EN</button><button data-lang="ko">KO</button><button data-lang="ja">JA</button></div>
+      <div class="seg" id="segTheme"><button data-theme="light" class="on">Light</button><button data-theme="dark">Dark</button></div>
+      <button class="demo-btn" id="demoBtn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar" id="sbar">
+          <span>9:41</span>
+          <span class="glyphs">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="homebar" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="screenwrap">
+
+<!-- WELCOME -->
+<section class="scr scr--photo" data-id="welcome" data-light="1">
+  <div class="rt-photo"></div>
+  <div class="scr-top"><h1 class="rt-wh" data-th="wel.h"></h1></div>
+  <div class="scr-body"></div>
+  <div class="scr-foot" style="padding:0 20px 44px">
+    <button class="rt-wbtn" data-go="which" data-t="wel.start"></button>
+    <p class="rt-wsign" data-th="wel.signin"></p>
+  </div>
+</section>
+
+<!-- WHICH ROUTINE -->
+<section class="scr" data-id="which">
+  <div class="scr-top">
+    <div class="rt-prog"><i style="width:4%"></i></div>
+    <div class="rt-ask"><svg class="rt-mas" data-mas="calm" viewBox="0 0 100 100"></svg><div class="rt-bub"><h2 data-t="wh.h"></h2><p data-t="wh.sub"></p></div></div>
+  </div>
+  <div class="scr-body">
+    <div class="rt-two">
+      <button class="rt-tile" data-r="morning"><img src="img/sun.png" alt=""><span data-t="wh.m"></span></button>
+      <button class="rt-tile" data-r="evening"><img src="img/moon.png" alt="" style="width:76px"><span data-t="wh.e"></span></button>
+    </div>
+  </div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- TIME -->
+<section class="scr" data-id="time">
+  <div class="scr-top">
+    <div class="rt-prog"><i style="width:25%"></i></div>
+    <div class="rt-ask"><svg class="rt-mas" data-mas="calm" viewBox="0 0 100 100"></svg><div class="rt-bub"><h2 id="timeH"></h2><p data-t="tm.sub"></p></div></div>
+  </div>
+  <div class="scr-body">
+    <div class="rt-wheels">
+      <div class="rt-wcol"><div class="bar"></div><div class="rt-wheel" id="wH"></div></div>
+      <div class="rt-wcol"><div class="bar"></div><div class="rt-wheel" id="wM"></div></div>
+    </div>
+  </div>
+  <div class="scr-foot"><button class="rt-btn" data-go="usefor" data-t="next"></button></div>
+</section>
+
+<!-- USE FOR -->
+<section class="scr" data-id="usefor">
+  <div class="scr-top">
+    <div class="rt-prog"><i style="width:50%"></i></div>
+    <div class="rt-ask"><svg class="rt-mas" data-mas="calm" viewBox="0 0 100 100"></svg><div class="rt-bub"><h2 data-t="uf.h"></h2><p data-t="uf.sub"></p></div></div>
+  </div>
+  <div class="scr-body"><div class="rt-rows" id="useList"></div></div>
+  <div class="scr-foot" style="padding-top:0">
+    <button class="rt-link" data-t="uf.else" id="ufElse"></button>
+    <button class="rt-btn" id="useBtn" data-go="loader" data-t="next"></button>
+  </div>
+</section>
+
+<!-- LOADER (new) -->
+<section class="scr wash" data-id="loader">
+  <div class="scr-top" style="padding-top:50px"></div>
+  <div class="scr-body">
+    <div class="rt-load">
+      <svg class="rt-mas spinning" data-mas="happy" viewBox="0 0 100 100"></svg>
+      <h2 class="rt-load-h" id="loadH"></h2>
+      <div class="rt-ls" id="loadSteps">
+        <div class="rt-l"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">—</span></div>
+        <div class="rt-l"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">—</span></div>
+        <div class="rt-l"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">—</span></div>
+        <div class="rt-l"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">—</span></div>
+      </div>
+      <div class="rt-q"><div class="st">★★★★★</div><p id="qText">—</p><b id="qWho">—</b></div>
+      <div class="rt-qd" id="qDots"><i class="on"></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- ROUTINE CARD -->
+<section class="scr wash" data-id="routine">
+  <div class="scr-top">
+    <h2 class="rt-h" id="rtH"></h2>
+    <p class="rt-sub" data-t="rc.sub"></p>
+  </div>
+  <div class="scr-body">
+    <div class="rt-rcard">
+      <div class="rt-rmeta" id="rcMeta"></div>
+      <div class="rt-rt" id="rcTitle"></div>
+      <svg class="rt-mas" data-mas="calm" viewBox="0 0 100 100"></svg>
+      <span class="rt-for" id="rcFor"></span>
+      <div class="rt-steps" id="rcSteps"></div>
+    </div>
+    <div style="height:12px"></div>
+  </div>
+  <div class="scr-foot"><button class="rt-btn" data-go="remind" data-t="rc.cta"></button></div>
+</section>
+
+<!-- REMINDERS -->
+<section class="scr" data-id="remind">
+  <div class="scr-top">
+    <h2 class="rt-h" style="margin-top:56px" data-th="rm.h"></h2>
+    <p class="rt-sub" data-t="rm.sub"></p>
+  </div>
+  <div class="scr-body">
+    <div class="rt-rem">
+      <div class="rt-ph"></div>
+      <div class="rt-nt"><svg class="ic appicon" viewBox="0 0 64 64"></svg><div><b id="ntT"></b><span id="ntD"></span></div></div>
+    </div>
+  </div>
+  <div class="scr-foot"><button class="rt-btn" id="remBtn" data-t="next"></button></div>
+  <div class="rt-ov" id="consent">
+    <div class="rt-dim"></div>
+    <div class="rt-sheet">
+      <div class="rt-handle"></div>
+      <h3 data-t="cs.h"></h3>
+      <div class="rt-all"><span data-t="cs.all"></span><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="rt-cl on"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span data-t="cs.age"></span></div>
+      <div class="rt-cl opt"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span data-t="cs.mkt"></span><span class="v" data-t="cs.view"></span></div>
+      <button class="rt-btn" id="csBtn" style="margin-top:30px" data-t="cs.sel"></button>
+    </div>
+  </div>
+  <div class="rt-ov" id="notif">
+    <div class="rt-dim" style="background:rgba(200,200,204,.55)"></div>
+    <div class="rt-sys">
+      <h4 data-t="nf.h"></h4>
+      <p data-t="nf.p"></p>
+      <div class="rt-sysb"><button id="nfNo" data-t="nf.no"></button><button id="nfYes" data-t="nf.yes"></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- STREAK -->
+<section class="scr wash" data-id="streak">
+  <div class="rt-fx" id="fxStreak"></div>
+  <div class="scr-top"><h2 class="rt-h" style="margin-top:52px" data-t="sk.h"></h2></div>
+  <div class="scr-body">
+    <div class="rt-streak">
+      <svg class="rt-mas" data-mas="wink" viewBox="0 0 100 100"></svg>
+      <div class="rt-sn" data-t="sk.n"></div>
+      <p class="rt-sd" data-th="sk.d"></p>
+    </div>
+  </div>
+  <div class="scr-foot"><button class="rt-btn" data-go="paywall" data-t="sk.cta"></button></div>
+</section>
+
+<!-- PAYWALL -->
+<section class="scr scr--pay" data-id="paywall">
+  <button class="rt-x" id="payClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="scr-top" style="padding:0"></div>
+  <div class="scr-body">
+    <div class="rt-pwtop"><svg class="rt-mas" data-mas="happy" viewBox="0 0 100 100"></svg><div class="rt-pwsheet"></div></div>
+    <span class="rt-pill" id="pwPill"></span>
+    <h2 class="rt-pwh" id="pwH"></h2>
+    <p class="rt-pwh2" data-t="pw.h2"></p>
+    <p class="rt-pws" id="pwS"></p>
+    <div class="rt-tl" id="pwTl">
+      <div class="rt-tli first"><span class="dot"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 10V8a5 5 0 0 1 9.6-1.9l-1.8.8A3 3 0 0 0 9 8v2h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"/></svg></span><div><b data-t="tl.t"></b><span id="tlToday"></span></div></div>
+      <div class="rt-tli"><span class="dot"><svg viewBox="0 0 24 24" fill="#F5B800"><path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8a2.5 2.5 0 0 0 2.4 2Zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1Z"/></svg></span><div><b data-t="tl.5"></b><span data-t="tl.5d"></span></div></div>
+      <div class="rt-tli"><span class="dot"><svg viewBox="0 0 24 24" fill="#F5B800"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9Z"/></svg></span><div><b data-t="tl.7"></b><span id="tlEnd"></span></div></div>
+    </div>
+    <div class="rt-plans" id="planList">
+      <button class="rt-plan" data-v="year"><span class="rt-save" data-t="pw.save"></span><span><span class="t" data-t="pw.year"></span><span class="s" id="pwYs"></span></span><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></button>
+      <button class="rt-plan" data-v="month"><span><span class="t">$5.00</span><span class="s" data-t="pw.month"></span></span><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></button>
+    </div>
+    <img class="rt-aw" src="img/awards-a.png" alt="App of the Day · Apps To Support Those With ADHD · Best Self Care App — Apple 2024">
+    <div class="rt-rev"><h5>I love the this app!</h5><div class="st">★★★★★</div><p>This is probably the best routine planner app I’ve seen! Really helps me stay motivated and achieve healthy habits every singe day. Thank you Routinery! 💜</p><small>tsy9&amp;</small></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="scr-foot"><button class="rt-btn" id="payCta"></button></div>
+</section>
+
+<!-- OFFER -->
+<section class="scr scr--offer sheet" data-id="offer">
+  <button class="rt-x" id="offClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="scr-top" style="padding-top:62px">
+    <svg class="rt-mas" data-mas="calm" viewBox="0 0 100 100" style="width:68px;height:68px;margin:0 auto"></svg>
+    <h2 class="rt-oh" data-th="of.h"></h2>
+    <p class="rt-os" id="ofS"></p>
+  </div>
+  <div class="scr-body">
+    <div class="rt-cmp"><table>
+      <tr><th></th><th data-t="of.free"></th><th class="pr">Premium</th></tr>
+      <tr><td data-t="of.r1"></td><td>2</td><td class="pr" data-t="of.unl"></td></tr>
+      <tr><td data-t="of.r2"></td><td data-t="of.yes"></td><td class="pr" data-t="of.none"></td></tr>
+      <tr><td data-t="of.r3"></td><td>✓</td><td class="pr">✓</td></tr>
+      <tr><td data-t="of.r4"></td><td>$0</td><td class="pr" data-t="of.pm"></td></tr>
+    </table></div>
+    <div class="rt-mplan"><div class="rt-plan on"><span><span class="t" data-t="of.mt"></span><span class="s" data-t="of.ms"></span></span><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></div></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="scr-foot" style="padding-top:6px">
+    <button class="rt-btn" id="offerCta" data-t="of.cta"></button>
+    <button class="rt-link" id="offerNo" style="padding-bottom:0" data-t="of.no"></button>
+  </div>
+</section>
+
+<!-- ACCOUNT (after purchase) -->
+<section class="scr scr--photo" data-id="account" data-light="1">
+  <div class="rt-photo"></div>
+  <div class="scr-top"><h1 class="rt-wh" style="font-size:36px" data-th="ac.h"></h1><p class="rt-wsub" data-t="ac.sub"></p></div>
+  <div class="scr-body"></div>
+  <div class="scr-foot" style="padding:0 20px 44px">
+    <button class="rt-wbtn" id="acSign"><span class="rt-wbadge" data-t="ac.badge"></span><span data-t="ac.sign"></span></button>
+    <button class="rt-wbtn ghost" id="acLater" data-t="ac.later"></button>
+  </div>
+  <div class="rt-ov" id="att">
+    <div class="rt-dim" style="background:rgba(30,30,28,.35)"></div>
+    <div class="rt-sys">
+      <svg class="ic appicon" viewBox="0 0 64 64"></svg>
+      <h4 data-t="at.h"></h4>
+      <p>This app uses tracking to provide personalized content and ads, and to improve your experience.</p>
+      <div class="rt-sysb col"><button id="atNo" data-t="at.no"></button><button id="atYes" data-t="at.yes"></button></div>
+    </div>
+  </div>
+</section>
+
+        </div>
+      </div>
+    </div>
+    <div class="demo-cap hidden" id="demoCap"><div class="bar"><i id="demoProg"></i></div><p id="demoTxt"></p><button id="demoStop">Stop</button></div>
+    <div class="chips" id="chips"></div>
+    <p class="chiphint">Jump to any screen — answers already filled in.</p>
+    <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for this prototype"><span><b>Open it on your phone</b>Scan to try the flow in your hand.</span></div>
+  </div>
+  <div class="panelcol"><div class="pn" id="panel"></div></div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+/* ================= copy, per language (phone screens only) ================= */
+var LANGS=['en','ko','ja'];
+var T={
+ 'wel.h':["Switch on<br>Your Action","행동의<br>스위치를 켜세요","行動の<br>スイッチを入れよう"],
+ 'wel.start':["Start without signup","가입 없이 시작하기","登録せずに始める"],
+ 'wel.signin':["Already signed up? <b>Sign In</b>","이미 가입하셨나요? <b>로그인</b>","登録済みですか？<b>ログイン</b>"],
+ 'next':["Next","다음","次へ"],
+ 'wh.h':["Which routine should we build first?","어떤 루틴부터 만들까요?","どのルーティンから作りますか？"],
+ 'wh.sub':["We'll build just one for now.","지금은 하나만 만들어요.","まずは一つだけ作ります。"],
+ 'wh.m':["Morning routine","아침 루틴","朝のルーティン"],
+ 'wh.e':["Evening routine","저녁 루틴","夜のルーティン"],
+ 'tm.hm':["What time do you start your day?","몇 시에 하루를 시작하세요?","何時に一日を始めますか？"],
+ 'tm.he':["What time do you start winding down?","몇 시부터 하루를 마무리하세요?","何時からくつろぎ始めますか？"],
+ 'tm.sub':["Your routine will start at this time.","이 시간에 루틴이 시작돼요.","この時間にルーティンが始まります。"],
+ 'uf.h':["What will you use Routinery for?","루티너리를 어디에 쓰고 싶으세요?","Routineryを何に使いますか？"],
+ 'uf.sub':["We'll show related tasks first.","관련된 할 일을 먼저 보여드릴게요.","関連するタスクを先に表示します。"],
+ 'uf.else':["Something else","기타","その他"],
+ 'ld.hm':["Building your morning routine…","아침 루틴을 만드는 중…","朝のルーティンを作成中…"],
+ 'ld.he':["Building your bedtime routine…","잠자리 루틴을 만드는 중…","おやすみルーティンを作成中…"],
+ 'ld.1':["Starting it at {t} every day","매일 {t}에 시작하도록 설정","毎日{t}に開始"],
+ 'ld.2':["Putting “{u}” first","“{u}”을(를) 우선으로","「{u}」を優先"],
+ 'ld.3':["Breaking it into 1–5 minute steps","1~5분 단계로 나누는 중","1〜5分のステップに分割"],
+ 'ld.4':["Setting a voice to call out each step","단계마다 음성 안내 설정","各ステップを音声でお知らせ"],
+ 'rc.hm':["This is how your day starts","하루는 이렇게 시작돼요","一日はこう始まります"],
+ 'rc.he':["This is how your day ends","하루는 이렇게 마무리돼요","一日はこう終わります"],
+ 'rc.sub':["You can edit it anytime","언제든 수정할 수 있어요","いつでも編集できます"],
+ 'rc.meta':["Every day {t} · {d} min","매일 {t} · {d}분","毎日 {t} · {d}分"],
+ 'rc.tm':["Morning routine","아침 루틴","朝のルーティン"],
+ 'rc.te':["Bedtime routine","잠자리 루틴","おやすみルーティン"],
+ 'rc.for':["For: {u}","목표: {u}","目的：{u}"],
+ 'rc.cta':["Looks good","좋아요","いいね"],
+ 'rm.h':["We'll remind you so<br>you don't forget","잊지 않도록<br>알려드릴게요","忘れないように<br>お知らせします"],
+ 'rm.sub':["Reminders make habits easier to build","알림이 있으면 습관이 쉬워져요","リマインダーで習慣が身につきやすく"],
+ 'rm.nt':["{r} · {t}","{r} · {t}","{r} · {t}"],
+ 'rm.nd':["Time to start. First step: {s}","시작할 시간이에요. 첫 단계: {s}","始める時間です。最初のステップ：{s}"],
+ 'cs.h':["Before we start","시작하기 전에","始める前に"],
+ 'cs.all':["Agree to All","모두 동의","すべてに同意"],
+ 'cs.age':["I am over 16 years old. (Required)","만 16세 이상입니다. (필수)","16歳以上です。（必須）"],
+ 'cs.mkt':["Agree to marketing use (Optional)","마케팅 활용 동의 (선택)","マーケティング利用に同意（任意）"],
+ 'cs.view':["View","보기","表示"],
+ 'cs.sel':["Select","선택","選択"],
+ 'nf.h':["“Routinery” Would Like to Send You Notifications","“Routinery”에서 알림을 보내고자 합니다","“Routinery”は通知を送信します。よろしいですか？"],
+ 'nf.p':["Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.","알림에는 알림, 사운드 및 아이콘 배지가 포함될 수 있습니다. 설정에서 구성할 수 있습니다.","通知方法は、テキスト、サウンド、アイコンバッジが利用できる可能性があります。通知方法は“設定”で設定できます。"],
+ 'nf.no':["Don’t Allow","허용 안 함","許可しない"],
+ 'nf.yes':["Allow","허용","許可"],
+ 'sk.h':["You’re all set to flow!","이제 흐름을 탈 준비 완료!","準備完了、さあ始めよう！"],
+ 'sk.n':["1 day streak","1일 연속","1日連続"],
+ 'sk.d':["Your heart is sparkling<br>with the energy to begin a routine!","루틴을 시작할 에너지로<br>마음이 반짝이고 있어요!","ルーティンを始めるエネルギーで<br>心がキラキラしています！"],
+ 'sk.cta':["Get started","시작하기","はじめる"],
+ 'pw.pill':["{e} {r} · {t} daily","{e} {r} · 매일 {t}","{e} {r} · 毎日 {t}"],
+ 'pw.h':["Run your {r} free for 7 days!","{r}, 7일 동안 무료로!","{r}を7日間無料で！"],
+ 'pw.rm':["morning routine","아침 루틴","朝のルーティン"],
+ 'pw.re':["bedtime routine","잠자리 루틴","おやすみルーティン"],
+ 'pw.h2':["No charge · We'll remind you on day 5","결제 없음 · 5일째에 알려드려요","請求なし · 5日目にお知らせ"],
+ 'pw.sY':["for 7 days · then $36.00 / Annually","7일 무료 · 이후 연 $36.00","7日間無料 · その後 年額$36.00"],
+ 'pw.sM':["$5.00 / month · cancel anytime","월 $5.00 · 언제든 해지 가능","月額$5.00 · いつでも解約可能"],
+ 'pw.year':["Yearly · 7 days free","연간 · 7일 무료","年間 · 7日間無料"],
+ 'pw.yearS':["$3.00 / month · $36.00 billed yearly","월 $3.00 · 연 $36.00 결제","月あたり$3.00 · 年額$36.00"],
+ 'pw.save':["Save 40%","40% 절약","40%お得"],
+ 'pw.month':["1-month","1개월","1か月"],
+ 'pw.ctaY':["Try for $0","$0로 체험하기","$0で試す"],
+ 'pw.ctaM':["Continue · $5.00 / month","계속 · 월 $5.00","続ける · 月額$5.00"],
+ 'tl.t':["Today","오늘","今日"],
+ 'tl.today':["Your {r} runs for the first time at {t}.","{t}에 {r}이(가) 처음 시작돼요.","{t}に{r}が初めて始まります。"],
+ 'tl.5':["Day 5","5일째","5日目"],
+ 'tl.5d':["Get a reminder before the end of your trial.","체험이 끝나기 전에 알림을 받아요.","トライアル終了前にリマインダーが届きます。"],
+ 'tl.7':["Day 7","7일째","7日目"],
+ 'tl.end':["Subscription starts on {d}","{d}에 구독이 시작돼요","{d}にサブスクリプション開始"],
+ 'of.h':["Not ready for a year?<br>Go monthly instead.","1년은 부담되나요?<br>월간으로 시작하세요.","1年は迷いますか？<br>月額で始めましょう。"],
+ 'of.s':["No trial, no commitment. Your {r} stays saved either way.","체험도 약정도 없어요. 어느 쪽이든 {r}은(는) 저장돼요.","トライアルも縛りもなし。どちらでも{r}は保存されます。"],
+ 'of.free':["Free","무료","無料"],
+ 'of.r1':["Routines","루틴","ルーティン"],
+ 'of.r2':["Ads","광고","広告"],
+ 'of.r3':["AI assistants (MCP)","AI 어시스턴트 (MCP)","AIアシスタント（MCP）"],
+ 'of.r4':["Price","가격","価格"],
+ 'of.unl':["Unlimited","무제한","無制限"],
+ 'of.yes':["Shown","표시","あり"],
+ 'of.none':["None","없음","なし"],
+ 'of.pm':["$5.00 / mo","월 $5.00","月額$5.00"],
+ 'of.mt':["Monthly · $5.00","월간 · $5.00","月額 · $5.00"],
+ 'of.ms':["Billed today · cancel anytime in Settings","오늘 결제 · 설정에서 언제든 해지","本日請求 · 設定からいつでも解約"],
+ 'of.cta':["Go Premium · $5.00 / month","프리미엄 시작 · 월 $5.00","プレミアムへ · 月額$5.00"],
+ 'of.no':["Keep the free plan","무료 플랜 유지","無料プランを続ける"],
+ 'ac.h':["Your routine<br>is ready","루틴이<br>준비됐어요","ルーティンの<br>準備ができました"],
+ 'ac.sub':["Save it to carry on from your watch, tablet or Mac.","저장하면 워치, 태블릿, Mac에서도 이어갈 수 있어요.","保存すればWatch、タブレット、Macでも続けられます。"],
+ 'ac.badge':["Keep your data safe!","데이터를 안전하게!","データを安全に！"],
+ 'ac.sign':["Sign up in 10 seconds","10초 만에 가입하기","10秒で登録"],
+ 'ac.later':["Maybe later","나중에","あとで"],
+ 'at.h':["Allow “Routinery” to track your activity across other companies’ apps and websites?","“Routinery”이(가) 다른 회사의 앱 및 웹 사이트에 걸친 사용자의 활동을 추적하도록 허용하겠습니까?","“Routinery”が他社のAppやWebサイトを横断してあなたのアクティビティの追跡することを許可しますか？"],
+ 'at.no':["Ask App Not to Track","앱에 추적 금지 요청","Appにトラッキングしないように要求"],
+ 'at.yes':["Allow","허용","許可"]
+};
+var USE=[
+ {k:'plan',e:'✅',l:['Actually do what I plan','계획한 걸 실제로 하기','計画したことを本当にやる']},
+ {k:'glance',e:'🗓️',l:['See my day at a glance','하루를 한눈에 보기','一日をひと目で見る']},
+ {k:'focus',e:'🎯',l:['Focus and finish one thing','하나에 집중해서 끝내기','一つに集中して終わらせる']},
+ {k:'forget',e:'📌',l:['Never forget a task','할 일 잊지 않기','タスクを忘れない']},
+ {k:'breaks',e:'☕',l:['Take breaks on busy days','바쁜 날에도 쉬어가기','忙しい日に休憩をとる']},
+ {k:'small',e:'🌱',l:['Start small on low-energy days','기운 없는 날엔 작게 시작하기','元気のない日は小さく始める']}
+];
+var USEK={}; USE.forEach(function(u){ USEK[u.k]=u; });
+/* bedtime: their own card · morning: the example on routinery.app */
+var STEPS={
+ evening:{d:7,e:'🌙',s:[
+  ['👔',['Get your clothes ready for tomorrow','내일 입을 옷 준비하기','明日の服を準備する']],
+  ['📝',['Remember one thing you appreciated today','오늘 고마웠던 일 하나 떠올리기','今日感謝したことを一つ思い出す']],
+  ['🤸',['Do one minute of stretching before sleep','자기 전 1분 스트레칭','寝る前に1分ストレッチ']]]},
+ morning:{d:45,e:'☀️',s:[
+  ['⏰',['Wake up','기상','起床']],['🤸',['Stretch','스트레칭','ストレッチ']],['🧘',['Meditate','명상','瞑想']],
+  ['🚿',['Shower','샤워','シャワー']],['🍳',['Breakfast','아침 식사','朝食']]]}
+};
+var QUOTES=[
+ ['I never thought an app could make such a big difference, but it truly has. If I could give it more than five stars, I would.','lauren'],
+ ['I started using this app to turn things like light exercise and reading into habits and it really helped me stick with them.','sora'],
+ ['It’s great for people who get distracted and try to do too much at once but never finish anything.','valeria'],
+ ['The app reads your tasks out loud and reminds you when it’s time for the next one which makes it easier to stay focused.','kaito']
+];
+var LOCALE={en:'en-US',ko:'ko-KR',ja:'ja-JP'};
+
+/* ================= state ================= */
+var S0={lang:'en',theme:'light'};
+function defaults(){ return {lang:S0.lang,theme:S0.theme,routine:'evening',h:22,m:0,use:'plan',plan:'year',rem:0}; }
+var S=defaults();
+function L(){ return LANGS.indexOf(S.lang); }
+function t(k,v){ var s=(T[k]||[k])[L()]; if(v) Object.keys(v).forEach(function(x){ s=s.split('{'+x+'}').join(v[x]); }); return s; }
+function ev(){ return S.routine==='evening'; }
+function clock(){ var d=new Date(2026,0,1,S.h,S.m);
+  if(S.lang==='en') return new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit'}).format(d).replace(' ','').toLowerCase();
+  if(S.lang==='ko') return new Intl.DateTimeFormat('ko-KR',{hour:'numeric',minute:'2-digit'}).format(d);
+  return ('0'+S.h).slice(-2)+':'+('0'+S.m).slice(-2); }
+
+/* ================= marks ================= */
+function appIcon(el){ el.innerHTML='<defs><linearGradient id="ag'+(appIcon.n=(appIcon.n||0)+1)+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA13D"/><stop offset="1" stop-color="#FF7A1A"/></linearGradient></defs>'
+ +'<rect width="64" height="64" rx="15" fill="url(#ag'+appIcon.n+')"/>'
+ +'<path d="M20 22c0 12 24 8 24 22" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/>'
+ +'<rect x="13" y="12" width="13" height="13" rx="3.6" fill="#fff"/><rect x="38" y="40" width="12" height="12" rx="3.4" fill="#fff"/>'; }
+document.querySelectorAll('.appicon').forEach(appIcon);
+var FACES={
+ calm:'<circle cx="57" cy="60" r="2.6" fill="#1A1A1A"/><circle cx="71" cy="59" r="2.6" fill="#1A1A1A"/><path d="M58 67q6 5 12 0" fill="none" stroke="#1A1A1A" stroke-width="2.2" stroke-linecap="round"/>',
+ happy:'<ellipse cx="57" cy="59" rx="3" ry="3.8" fill="#1A1A1A"/><ellipse cx="72" cy="58" rx="3" ry="3.8" fill="#1A1A1A"/><path d="M57 66h16q-1 9-8 9t-8-9z" fill="#1A1A1A"/><path d="M60 70.5q5 3 10 0" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>',
+ wink:'<path d="M60 59l-6-3m6 3-6 3" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="73" cy="58" rx="2.8" ry="3.6" fill="#1A1A1A"/><path d="M59 66h14q-1 9-7 9t-7-9z" fill="#1A1A1A"/><path d="M62 70.5q4 3 8 0" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>'
+};
+function mascot(el){ var f=el.dataset.mas||'calm';
+  el.innerHTML='<circle cx="54" cy="60" r="34" fill="#FAE100"/>'
+   +'<g class="sw"><path d="M58 30c18-4 30-14 22-22-7-7-30-2-44 8-12 9-14 18-5 20l10 2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>'
+   +'<path d="M36 33l6 6-8 3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>'+FACES[f]; }
+document.querySelectorAll('[data-mas]').forEach(mascot);
+(function(){ var c=['#FAE100','#F6A400','#FBEA9A','#F6A400','#FAE100','#FBEA9A'], p=[[14,46,10,10,1],[28,44,5,18,0],[54,49,5,16,0],[66,51,10,10,1],[82,42,10,10,1],[90,52,5,18,0]], h='';
+  p.forEach(function(q,i){ h+='<i style="left:'+q[0]+'%;top:'+q[1]+'%;width:'+q[2]+'px;height:'+q[3]+'px;background:'+c[i]+';border-radius:'+(q[4]?'50%':'2px')+';transform:rotate('+(i*37-40)+'deg)"></i>'; });
+  document.getElementById('fxStreak').innerHTML=h; })();
+
+/* ================= builders (re-run on language change) ================= */
+function buildUse(){ var g=document.getElementById('useList'); g.innerHTML='';
+  USE.forEach(function(u){ var b=document.createElement('button'); b.className='rt-row'; b.dataset.v=u.k;
+    b.innerHTML='<span>'+u.l[L()]+'</span> <span>'+u.e+'</span>';
+    b.addEventListener('click',function(){ S.use=u.k; syncScreen(); }); g.appendChild(b); }); }
+var IH=52, WH=document.getElementById('wH'), WM=document.getElementById('wM'), wt={};
+function buildWheel(el,n){ var h='<div class="sp"></div>'; for(var i=0;i<n;i++) h+='<div class="it">'+('0'+i).slice(-2)+'</div>'; el.innerHTML=h+'<div class="sp"></div>'; }
+function paint(el){ var idx=Math.round(el.scrollTop/IH); el.querySelectorAll('.it').forEach(function(it,i){ var d=Math.abs(i-idx); it.style.opacity=d===0?1:(d===1?.4:.18); it.style.fontSize=d===0?'24px':(d===1?'22px':'17px'); }); return idx; }
+function setWheels(){ WH.scrollTop=S.h*IH; WM.scrollTop=S.m*IH; paint(WH); paint(WM); }
+[[WH,'h',23],[WM,'m',59]].forEach(function(w){ w[0].addEventListener('scroll',function(){ var idx=paint(w[0]); clearTimeout(wt[w[1]]);
+  wt[w[1]]=setTimeout(function(){ var v=Math.min(w[2],Math.max(0,idx)); if(v!==S[w[1]]){ S[w[1]]=v; syncScreen(true); } },120); }); });
+buildWheel(WH,24); buildWheel(WM,60);
+function applyStatic(){
+  document.documentElement.lang=S.lang;
+  document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('[data-th]').forEach(function(el){ el.innerHTML=t(el.dataset.th); });
+  buildUse();
+}
+
+/* ================= everything downstream reads S ================= */
+function syncScreen(fromWheel){
+  var li=L(), E=ev(), tm=clock(), st=STEPS[S.routine], u=USEK[S.use].l[li], rname=t(E?'pw.re':'pw.rm');
+  document.querySelectorAll('.rt-tile').forEach(function(b){ b.classList.toggle('on', b.dataset.r===S.routine); });
+  document.getElementById('timeH').textContent=t(E?'tm.he':'tm.hm');
+  if(!fromWheel) setWheels();
+  document.querySelectorAll('#useList .rt-row').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.use); });
+  /* loader reads every answer */
+  document.getElementById('loadH').textContent=t(E?'ld.he':'ld.hm');
+  var ls=document.querySelectorAll('#loadSteps .t');
+  ls[0].textContent=t('ld.1',{t:tm}); ls[1].textContent=t('ld.2',{u:u}); ls[2].textContent=t('ld.3'); ls[3].textContent=t('ld.4');
+  /* routine card */
+  document.getElementById('rtH').textContent=t(E?'rc.he':'rc.hm');
+  document.getElementById('rcMeta').innerHTML=(E?'<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>':'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>')+'<span>'+t('rc.meta',{t:tm,d:st.d})+'</span>';
+  document.getElementById('rcTitle').textContent=t(E?'rc.te':'rc.tm');
+  document.getElementById('rcFor').textContent=t('rc.for',{u:u+' '+USEK[S.use].e});
+  document.getElementById('rcSteps').innerHTML=st.s.map(function(s,i){ return '<div class="rt-step"><span class="n">'+(i+1)+'</span><span class="e">'+s[0]+'</span><span>'+s[1][li]+'</span></div>'; }).join('');
+  /* reminder mock */
+  document.getElementById('ntT').textContent=t('rm.nt',{r:t(E?'rc.te':'rc.tm'),t:tm});
+  document.getElementById('ntD').textContent=t('rm.nd',{s:st.s[0][1][li]});
+  document.getElementById('consent').classList.toggle('on',S.rem===1);
+  document.getElementById('notif').classList.toggle('on',S.rem===2);
+  /* paywall */
+  document.getElementById('pwPill').textContent=t('pw.pill',{e:st.e,r:t(E?'rc.te':'rc.tm'),t:tm});
+  document.getElementById('pwH').textContent=t('pw.h',{r:rname});
+  var yr=S.plan==='year';
+  document.getElementById('pwS').textContent=t(yr?'pw.sY':'pw.sM');
+  document.getElementById('pwYs').textContent=t('pw.yearS');
+  document.querySelectorAll('#planList .rt-plan').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.plan); });
+  document.getElementById('pwTl').classList.toggle('hidden',!yr);
+  document.getElementById('tlToday').textContent=t('tl.today',{r:rname,t:tm});
+  var end=new Date(); end.setDate(end.getDate()+7);
+  document.getElementById('tlEnd').textContent=t('tl.end',{d:new Intl.DateTimeFormat(LOCALE[S.lang],{month:'short',day:'numeric'}).format(end)});
+  document.getElementById('payCta').textContent=t(yr?'pw.ctaY':'pw.ctaM');
+  document.getElementById('ofS').textContent=t('of.s',{r:rname});
+}
+
+/* ================= router ================= */
+var ORDER=['welcome','which','time','usefor','loader','routine','remind','streak','paywall','offer','account'];
+var LABEL={welcome:'Welcome',which:'Which routine',time:'Time',usefor:'Use for',loader:'Build',routine:'Your routine',remind:'Reminders',streak:'Streak',paywall:'Paywall',offer:'Offer on close',account:'Account'};
+var scr={}, hist=[], cur='welcome', loadTimers=[], attTimer=null;
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+function chrome(){ var dark=S.theme==='dark', l=dark || !!scr[cur].dataset.light;
+  document.getElementById('sbar').classList.toggle('light',l); document.getElementById('homebar').classList.toggle('light',l); }
+function enter(id){ chrome(); paintChips(); paintPanel(); clearLoad(); clearTimeout(attTimer); document.getElementById('att').classList.remove('on');
+  if(id==='loader') runLoader(); if(id==='time') requestAnimationFrame(setWheels);
+  if(id==='remind'){ S.rem=0; syncScreen(true); }
+  if(id==='account') attTimer=setTimeout(function(){ if(cur==='account') document.getElementById('att').classList.add('on'); }, demo.on?350:700); }
+function go(id,opts){
+  opts=opts||{}; if(id===cur) return;
+  var from=scr[cur], to=scr[id];
+  if(!opts.back) hist.push(cur);
+  from.classList.remove('is-active');
+  if(!to.classList.contains('sheet') && !from.classList.contains('sheet')) from.classList.add('is-past');
+  Object.keys(scr).forEach(function(k){ if(k!==id&&k!==cur) scr[k].classList.remove('is-active'); });
+  if(to.classList.contains('sheet')) from.classList.add('is-active');
+  to.classList.remove('is-past'); to.classList.add('is-active');
+  cur=id; enter(id);
+}
+function jump(id){
+  var i=ORDER.indexOf(id);
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist=ORDER.slice(0,i<0?0:i);
+  if(id==='offer') scr.paywall.classList.add('is-active');
+  scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id);
+}
+var chipsBuilt=false;
+function paintChips(){
+  var c=document.getElementById('chips');
+  if(!chipsBuilt){ chipsBuilt=true;
+    ORDER.forEach(function(id){ var b=document.createElement('button'); b.className='chip'+(id==='offer'?' offer':''); b.textContent=LABEL[id];
+      b.dataset.id=id; b.onclick=function(){ stopDemo(); jump(id); }; c.appendChild(b); }); }
+  c.querySelectorAll('.chip').forEach(function(b){ b.classList.toggle('on', b.dataset.id===cur); });
+}
+function clearLoad(){ loadTimers.forEach(clearTimeout); loadTimers=[]; }
+function runLoader(){
+  var k=demo.on?0.48:1, steps=document.querySelectorAll('#loadSteps .rt-l');
+  steps.forEach(function(s){ s.classList.remove('on'); });
+  function showQuote(i){ document.getElementById('qText').textContent='“'+QUOTES[i][0]+'”'; document.getElementById('qWho').textContent=QUOTES[i][1];
+    document.querySelectorAll('#qDots i').forEach(function(d,n){ d.classList.toggle('on',n===i); }); }
+  showQuote(0);
+  steps.forEach(function(s,i){ loadTimers.push(setTimeout(function(){ s.classList.add('on'); },(600+i*900)*k)); });
+  [1,2,3].forEach(function(i){ loadTimers.push(setTimeout(function(){ showQuote(i); },(1500*i)*k)); });
+  loadTimers.push(setTimeout(function(){ if(cur==='loader') go('routine'); },5600*k));
+}
+
+/* ================= wiring ================= */
+document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ if(!b.disabled) go(b.dataset.go); }); });
+document.querySelectorAll('.rt-tile').forEach(function(b){ b.addEventListener('click',function(){
+  if(S.routine!==b.dataset.r){ S.routine=b.dataset.r; S.h=S.routine==='evening'?22:7; S.m=0; }
+  syncScreen(); setTimeout(function(){ if(cur==='which') go('time'); },260); }); });
+document.getElementById('ufElse').addEventListener('click',function(){});
+document.querySelectorAll('#planList .rt-plan').forEach(function(b){ b.addEventListener('click',function(){ S.plan=b.dataset.v; syncScreen(true); }); });
+document.getElementById('remBtn').addEventListener('click',function(){ S.rem=1; syncScreen(true); });
+document.getElementById('csBtn').addEventListener('click',function(){ S.rem=2; syncScreen(true); });
+document.getElementById('nfYes').addEventListener('click',function(){ go('streak'); });
+document.getElementById('nfNo').addEventListener('click',function(){ go('streak'); });
+document.getElementById('payClose').addEventListener('click',function(){ go('offer'); });
+document.getElementById('payCta').addEventListener('click',function(){ go('account'); });
+document.getElementById('offClose').addEventListener('click',function(){ go('account'); });
+document.getElementById('offerCta').addEventListener('click',function(){ go('account'); });
+document.getElementById('offerNo').addEventListener('click',function(){ go('account'); });
+document.getElementById('atNo').addEventListener('click',function(){ document.getElementById('att').classList.remove('on'); });
+document.getElementById('atYes').addEventListener('click',function(){ document.getElementById('att').classList.remove('on'); });
+document.getElementById('acSign').addEventListener('click',function(){ jump('welcome'); });
+document.getElementById('acLater').addEventListener('click',function(){ jump('welcome'); });
+
+function setSeg(id,attr,val){ document.querySelectorAll('#'+id+' button').forEach(function(b){ b.classList.toggle('on', b.dataset[attr]===val); }); }
+function setLang(l){ S.lang=l; S0.lang=l; setSeg('segLang','lang',l); applyStatic(); syncScreen(); paintPanel(); }
+function setTheme(th){ S.theme=th; S0.theme=th; document.getElementById('phoneIn').classList.toggle('dark',th==='dark'); setSeg('segTheme','theme',th); chrome(); }
+document.querySelectorAll('#segLang button').forEach(function(b){ b.addEventListener('click',function(){ stopDemo(); setLang(b.dataset.lang); }); });
+document.querySelectorAll('#segTheme button').forEach(function(b){ b.addEventListener('click',function(){ setTheme(b.dataset.theme); }); });
+
+/* ================= the 30-second walkthrough ================= */
+var demo={tok:0,on:false,t0:0,iv:null}, finger=document.getElementById('finger'), phoneIn=document.getElementById('phoneIn');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(txt){ document.getElementById('demoTxt').textContent=txt; }
+async function tap(sel,tok){
+  if(demo.tok!==tok) throw 0;
+  var el=document.querySelector(sel); if(!el) return;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect(), z=p.width/phoneIn.offsetWidth||1;
+  finger.style.left=((r.left-p.left+r.width/2)/z)+'px'; finger.style.top=((r.top-p.top+r.height/2)/z)+'px';
+  finger.classList.add('show'); await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160);
+  if(demo.tok!==tok) throw 0;
+}
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true; demo.t0=Date.now();
+  var keep={lang:S.lang,theme:S.theme}; S=defaults(); S.lang=keep.lang; S.theme=keep.theme; S.routine='morning'; S.h=7; S.use='forget';
+  applyStatic(); jump('welcome');
+  document.getElementById('demoCap').classList.remove('hidden');
+  demo.iv=setInterval(function(){ document.getElementById('demoProg').style.width=Math.min(100,(Date.now()-demo.t0)/290)+'%'; },200);
+  (async function(){
+    try{
+      cap('No tracking prompt and no sign-up wall: a new install starts straight away.'); await pause(1500,tok);
+      await tap('[data-id=welcome] .rt-wbtn',tok);
+      cap('Your questions, unchanged. First: which routine.'); await pause(600,tok);
+      await tap('.rt-tile[data-r=evening]',tok); await pause(500,tok);
+      cap('Your time wheel. Say they wind down at 9 pm.'); await pause(350,tok);
+      WH.scrollTo({top:21*IH,behavior:'smooth'}); await pause(950,tok); S.h=21; setWheels(); syncScreen(true);
+      await tap('[data-id=time] .rt-btn',tok);
+      cap('What they want help with.'); await pause(500,tok);
+      await tap('#useList [data-v=focus]',tok); await pause(300,tok); await tap('#useBtn',tok);
+      cap('A short build screen reads their answers back.'); await pause(2700,tok);
+      cap('Their routine, at their time, for their reason.'); await pause(1100,tok);
+      await tap('[data-id=routine] .rt-btn',tok);
+      cap('Reminders and consent stay before the paywall: the day-5 trial reminder needs them.'); await pause(500,tok);
+      await tap('#remBtn',tok); await pause(250,tok); await tap('#csBtn',tok); await pause(300,tok); await tap('#nfYes',tok);
+      cap('Your streak screen, untouched.'); await pause(700,tok);
+      await tap('[data-id=streak] .rt-btn',tok);
+      cap('The paywall names their routine and 9:00 pm, and shows yearly as $3 a month.'); await pause(2000,tok);
+      await tap('#planList [data-v=month]',tok); await pause(600,tok); await tap('#planList [data-v=year]',tok); await pause(400,tok);
+      cap('They close it. One second chance: $5.00 a month, no trial.'); await tap('#payClose',tok); await pause(2300,tok);
+      cap('That is the flow. Account and tracking come after this, once there is something to save.');
+      finger.classList.remove('show'); await pause(2400,tok); stopDemo();
+    }catch(e){}
+  })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; clearInterval(demo.iv); finger.classList.remove('show','press');
+  document.getElementById('demoCap').classList.add('hidden'); }
+document.getElementById('demoBtn').addEventListener('click',startDemo);
+document.getElementById('demoStop').addEventListener('click',stopDemo);
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on) stopDemo(); });
+</script>
+<script>
+/* ---- the short panel: hypothesis + potential outcome, nothing else ---- */
+var PANEL={
+welcome:{n:2,t:'Let people start before the account',
+ hyp:'Try making “Start without signup” the main button and moving sign-up past the paywall, <b>because your listing promises no account, yet the biggest button on the first screen asks for one</b>.',
+ n2:4,hyp2:'Try removing the tracking prompt from this screen, <b>because today it fires over your welcome video before the app has done anything</b>. It moves to after the paywall.',out2:'CR +10–15%',
+ kept:'Your dimmed video frame, “Switch on Your Action”, the white pill button and “Already signed up? Sign In”.',
+ out:'CR +8% · ARPU +17%'},
+which:{ctx:true,t:'Which routine should we build first?',
+ kept:'Untouched: the mascot and speech bubble, your sun and moon tiles, one tap to continue. The answer now flows to every screen after it.'},
+time:{ctx:true,t:'What time do you start winding down?',
+ kept:'Untouched: your two-column time wheel, working. The question follows the routine they picked, and the time they set appears on the build screen, the routine card, the reminder and the paywall.'},
+usefor:{ctx:true,t:'What will you use Routinery for?',
+ kept:'Untouched: all six options in your order, with your emoji and “Something else”. The answer is now read back on the build screen and the routine card.'},
+loader:{n:3,t:'Put their routine on the paywall',
+ hyp:'Try a short build screen that reads their answers back, <b>because today the routine card appears straight after the questions and nothing confirms you listened</b>. The four quotes are from your own homepage.',
+ kept:'Your yellow wash and your mascot, with its swirl turning.',
+ out:'CR +15–20%'},
+routine:{n:3,t:'Put their routine on the paywall',
+ hyp:'Try tagging the card with the reason they gave, <b>because it is the one answer your flow asks for and then never shows again</b>. Pick morning instead and the card switches to the routine on your homepage.',
+ kept:'Your routine card as it ships: the meta line, the mascot, numbered steps with emoji, “You can edit it anytime” and “Looks good”.',
+ out:'CR +15–20%'},
+remind:{ctx:true,t:'We’ll remind you so you don’t forget',
+ kept:'Kept before the paywall on purpose: your trial promises a reminder on day 5, and that needs notifications. Your “Before we start” sheet and the system prompt are unchanged; the illustration now shows their own routine.'},
+streak:{ctx:true,t:'You’re all set to flow!',
+ kept:'Untouched: the winking mascot, the confetti and “1 day streak”.'},
+paywall:{n:3,t:'Put their routine on the paywall',
+ hyp:'Try naming their routine and its time above your headline and in “Today” on the timeline, <b>because by this point you know both and the paywall still talks to everyone the same way</b>. Go back and change the time, and this screen changes with it.',
+ n2:5,hyp2:'Try labelling the yearly plan as $3.00 a month with “Save 40%”, <b>because today it is labelled “Free” while monthly shows its price, so the cheaper plan reads as the dear one</b>.',out2:'ARPU +10–15%',
+ kept:'Your yellow head with the mascot, “No charge · We’ll remind you on day 5”, the three-step trial timeline, the plan cards, your Apple award laurels, the review and “Try for $0”.',
+ out:'CR +15–20%'},
+offer:{n:1,t:'Catch the “no” with a monthly plan',
+ hyp:'Try opening this when they close the paywall, <b>because today the X drops them to the free plan and your $5.00 monthly plan is never offered</b>. Different shape from the paywall on purpose: no trial, a plain Free vs Premium comparison.',
+ kept:'Your mascot, white surfaces, the grey card, yellow selected state and dark pill button. Every row is from your App Store listing: 2 routines free, ads on the free plan, MCP included free.',
+ out:'ARPU +10–15%'},
+account:{n:4,t:'Ask for tracking after the paywall',
+ hyp:'Try asking for tracking here, after purchase, <b>because on the first screen nobody has a reason to say yes, and the prompt costs you people before they reach the paywall</b>.',
+ n2:2,hyp2:'Try asking for the account here too, <b>because now there is a routine to keep, and your “Keep your data safe!” badge finally has something to protect</b>.',out2:'CR +8% · ARPU +17%',
+ kept:'Your welcome video frame, white sign-up pill and the yellow “Keep your data safe!” badge, plus your own tracking purpose text, word for word.',
+ out:'CR +10–15%'}
+};
+function outBlock(lab,val){ return '<div class="pn-out"><div class="lab">'+lab+'</div><div class="v">'+val+'</div></div>'; }
+function paintPanel(){
+  var d=PANEL[cur]; if(!d) return; var h='';
+  if(d.ctx){ h+='<div class="pn-n ctx">Context · no change proposed</div><h3 class="pn-t">'+d.t+'</h3><div class="pn-kept">'+d.kept+'</div>'; }
+  else {
+    h+='<div class="pn-n">Idea '+d.n+' of 5</div><h3 class="pn-t">'+d.t+'</h3><p class="pn-hyp">'+d.hyp+'</p>'+outBlock('Potential outcome · based on Adapty data',d.out);
+    if(d.hyp2) h+='<div class="pn-sep"></div><div class="pn-n">Idea '+d.n2+' of 5</div><p class="pn-hyp" style="margin-top:12px">'+d.hyp2+'</p>'+outBlock('Potential outcome · based on Adapty data',d.out2);
+    h+='<div class="pn-kept"><b>Your design, unchanged.</b> '+d.kept+'</div>';
+  }
+  if(S.lang!=='en') h+='<div class="pn-kept"><b>Language.</b> Screens are shown in '+(S.lang==='ko'?'Korean':'Japanese')+' to show one flow serving every market. Translated by us; store prices stay as published in US dollars; reviews and award tiles stay verbatim in English.</div>';
+  h+='<div class="pn-foot">Ranges are Adapty’s expected effect from tests across 30,000+ subscription apps — not measured lift for Routinery. Prices, ratings, quotes and awards come from your own published material.</div>';
+  document.getElementById('panel').innerHTML=h;
+}
+
+/* ---- views, jumps from the overview ---- */
+function showView(v){
+  if(v!=='proto') stopDemo();
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); });
+  window.scrollTo(0,0);
+  if(v==='proto' && cur==='time') requestAnimationFrame(setWheels);
+}
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); jump(b.dataset.jump); }); });
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); startDemo(); }); });
+
+applyStatic();
+scr.welcome.classList.add('is-active');
+syncScreen(); chrome(); paintChips(); paintPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+</script>
+</body>
+</html>
